@@ -2,7 +2,7 @@
 title: 首页
 ---
 
-https://img.zhufacai.top/zhifa.png
+![](https://img.zhufacai.top/zhifa.png)
 
 # 收录信息
 
