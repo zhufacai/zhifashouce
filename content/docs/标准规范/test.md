@@ -1,0 +1,17 @@
+# test
+
+（2020年11月2日应急管理部令第4号公布，自2021年1月1日起施行）
+
+<!-- INFO END -->
+
+第一条  为了准确认定、及时消除煤矿重大事故隐患，根据《中华人民共和国安全生产法》和《国务院关于预防煤矿生产安全事故的特别规定》（国务院令第446号）等法律、行政法规，制定本标准。
+
+```
+{{< embed-pdf url="/docs/标准规范/GB+6095-2021.pdf" hidePaginator="true" >}}
+```
+
+[compressed.tracemonkey-pldi-09.pdf (mozilla.github.io)](https://mozilla.github.io/pdf.js/web/viewer.html)
+
+[《新疆维吾尔自治区应急管理系统行政处罚自由裁量基准》-20220107114105621.pdf (xinjiang.gov.cn)](https://yjgl.xinjiang.gov.cn/xjyjgl/c112909/202112/1a119431c5d94c93a5800aecb772f913/files/《新疆维吾尔自治区应急管理系统行政处罚自由裁量基准》-20220107114105621.pdf)
+
+[GB+6095-2021.pdf](http://localhost:1313/docs/标准规范/GB+6095-2021.pdf)
