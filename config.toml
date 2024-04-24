@@ -5,7 +5,7 @@ defaultContentLanguage = 'zh'
 
 theme = "hugo-book"
 # enableGitInfo = true
-
+  enableInlineShortcodes = true
 [params]
   BookTheme = 'auto'
 
