@@ -6,4 +6,4 @@
 
 第一条  为了准确认定、及时消除煤矿重大事故隐患，根据《中华人民共和国安全生产法》和《国务院关于预防煤矿生产安全事故的特别规定》（国务院令第446号）等法律、行政法规，制定本标准。
 
-{{< embed-pdf url="/docs/标准规范/GB+6095-2021.pdf" hidePaginator="true" >}}
+{{< embed-pdf url="/docs/PDF/GB+6095-2021.pdf" hidePaginator="true" >}}
