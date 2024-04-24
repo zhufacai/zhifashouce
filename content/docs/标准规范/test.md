@@ -14,4 +14,4 @@
 
 [《新疆维吾尔自治区应急管理系统行政处罚自由裁量基准》-20220107114105621.pdf (xinjiang.gov.cn)](https://yjgl.xinjiang.gov.cn/xjyjgl/c112909/202112/1a119431c5d94c93a5800aecb772f913/files/《新疆维吾尔自治区应急管理系统行政处罚自由裁量基准》-20220107114105621.pdf)
 
-[GB+6095-2021.pdf](http://localhost:1313/docs/标准规范/GB+6095-2021.pdf)
+[GB+6095-2021.pdf](https://web.fadian.net/docs/标准规范/GB+6095-2021.pdf)
