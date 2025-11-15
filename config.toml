@@ -9,7 +9,7 @@ theme = "hugo-book"
 [params]
   BookTheme = 'auto'
 
-  BookToC = true
+  BookToC = false
   BookSection = 'docs'
 
   BookSearch = true
