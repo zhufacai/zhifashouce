@@ -16,6 +16,7 @@ theme = "hugo-book"
   BookComments = false
   BookFlatSection = true
   enableInlineShortcodes = true
+  localSearch = true
   
   [markup]
   [markup.tableOfContents]
