@@ -1,14 +1,43 @@
+{{- if .Page.Site.Params.BookPortableLinks -}}
+  {{- template "portable-image" . -}}
+{{- else -}}
+  {{- template "portable-image" . -}} {{/* 统一使用便携式图片处理 */}}
+{{- end -}}
+
 {{- define "portable-image" -}}
   {{- $isRemote := or (in .Destination "://") (strings.HasPrefix .Destination "//") -}}
   {{- $destination := .Destination | safeURL -}}
   
   {{- if not $isRemote -}}
-    {{- /* 简单处理：将所有相对路径转换为从站点根目录开始的路径 */ -}}
-    {{- if not (strings.HasPrefix .Destination "/") -}}
-      {{- $pageDir := path.Dir .Page.File.Path -}}
-      {{- $destination = path.Join $pageDir .Destination -}}
-      {{- $destination = strings.TrimPrefix "content/" $destination -}}
-      {{- $destination = print "/" $destination -}}
+    {{- /* 处理相对路径图片 */ -}}
+    {{- $pageDir := path.Dir .Page.File.Path -}}
+    {{- $imagePath := path.Join $pageDir .Destination -}}
+    
+    {{- /* 尝试找到图片资源 */ -}}
+    {{- $imageResource := .Page.Resources.GetMatch .Destination -}}
+    {{- if not $imageResource -}}
+      {{- $imageResource = .Page.Resources.GetMatch $imagePath -}}
+    {{- end -}}
+    
+    {{- if $imageResource -}}
+      {{- /* 使用页面资源 */ -}}
+      {{- $destination = $imageResource.RelPermalink -}}
+    {{- else -}}
+      {{- /* 处理静态资源 */ -}}
+      {{- $staticPath := strings.TrimPrefix "/" .Destination -}}
+      {{- $staticImage := resources.Get $staticPath -}}
+      {{- if $staticImage -}}
+        {{- $destination = $staticImage.RelPermalink -}}
+      {{- else -}}
+        {{- /* 检查文件是否存在并发出警告 */ -}}
+        {{- $fullPath := print "static/" $staticPath -}}
+        {{- if not (fileExists $fullPath) -}}
+          {{- warnf "Image '%s' not found for page '%s'" .Destination .Page.File.Path -}}
+        {{- else -}}
+          {{- /* 静态文件存在，使用绝对路径 */ -}}
+          {{- $destination = print "/" $staticPath -}}
+        {{- end -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
   
