@@ -1,24 +1,16 @@
-{{- if .Page.Site.Params.BookPortableLinks -}}
-  {{- template "portable-image" . -}}
-{{- else -}}
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }}/>
-{{- end -}}
-{{/* 新增逻辑：非 index.md 的本地相对路径添加 ../ */}}
-    {{- if and (not (hasPrefix $Path "/")) (ne .PageInner.File.LogicalName "index.md") -}}
-      {{- $src = printf "../%s" $path -}}
+{{- define "portable-image" -}}
+  {{- $isRemote := or (in .Destination "://") (strings.HasPrefix .Destination "//") -}}
+  {{- $destination := .Destination | safeURL -}}
+  
+  {{- if not $isRemote -}}
+    {{- /* 简单处理：将所有相对路径转换为从站点根目录开始的路径 */ -}}
+    {{- if not (strings.HasPrefix .Destination "/") -}}
+      {{- $pageDir := path.Dir .Page.File.Path -}}
+      {{- $destination = path.Join $pageDir .Destination -}}
+      {{- $destination = strings.TrimPrefix "content/" $destination -}}
+      {{- $destination = print "/" $destination -}}
     {{- end -}}
   {{- end -}}
-  {{- 一直到这里 -}}
-{{- define "portable-image" -}}
-  {{- $isRemote := or (in .Destination "://") (strings.HasPrefix .Destination "//") }}
-  {{- if not $isRemote }}
-    {{- $path := print .Page.File.Dir .Destination }}
-    {{- if strings.HasPrefix .Destination "/" }}
-      {{- $path = print "/static" .Destination }}
-    {{- end }}
-    {{- if not (fileExists $path) }}
-      {{- warnf "Image '%s' not found in '%s'" .Destination .Page.File }}
-    {{- end }}
-  {{- end }}
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }}/>
+  
+  <img src="{{ $destination }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }}/>
 {{- end -}}
