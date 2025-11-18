@@ -9,10 +9,19 @@ theme = "hugo-book"
 [params]
   BookTheme = 'auto'
 
-  BookToC = false
+  BookToC = true
   BookSection = 'docs'
 
   BookSearch = true
   BookComments = false
   BookFlatSection = true
   enableInlineShortcodes = true
+  
+  [markup]
+  [markup.tableOfContents]
+    # 纳入目录的最小标题级别，默认为3
+    endLevel = 2
+    # 是否排序，其实就是是否在目录的前面添加序号“1. ”、"2. "等等
+    ordered = false
+    # 纳入目录的最大标题级别，默认为2
+    startLevel = 1
