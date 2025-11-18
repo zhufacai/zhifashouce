@@ -1,26 +1,44 @@
 {{- if .Page.Site.Params.BookPortableLinks -}}
   {{- template "portable-image" . -}}
 {{- else -}}
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }}/>
+  {{- template "portable-image" . -}}
 {{- end -}}
- {{/* 新增逻辑：非 index.md 的本地相对路径添加 ../ */}}
-    {{- if and (not (hasPrefix $u.Path "/")) (ne .Page.File.LogicalName "index.md") -}}
-      {{- $src = printf "../%s" $path -}}
+
+{{- define "portable-image" -}}
+  {{- $u := urls.Parse .Destination -}}
+  {{- $src := $u.String -}}
+  
+  {{- if not $u.IsAbs -}}
+    {{- $path := strings.TrimPrefix "./" $u.Path -}}
+    {{- /* 尝试从页面资源或全局资源中获取图片 */ -}}
+    {{- with or (.Page.Resources.Get $path) (resources.Get $path) -}}
+      {{- $src = .RelPermalink -}}
+      {{- with $u.RawQuery -}}
+        {{- $src = printf "%s?%s" $src . -}}
+      {{- end -}}
+      {{- with $u.Fragment -}}
+        {{- $src = printf "%s#%s" $src . -}}
+      {{- end -}}
+    {{- else -}}
+      {{- /* 处理非index.md页面的相对路径 */ -}}
+      {{- if and (not (hasPrefix $u.Path "/")) (ne .Page.File.LogicalName "index.md") -}}
+        {{- $src = printf "../%s" $path -}}
+      {{- else -}}
+        {{- $src = $path -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
-  {{- 一直到这里 -}}
-{{- define "portable-image" -}}
-  {{- $isRemote := or (in .Destination "://") (strings.HasPrefix .Destination "//") }}
-  {{- if not $isRemote }}
-    {{- $path := print .Page.File.Dir .Destination }}
-    {{- if strings.HasPrefix .Destination "/" }}
-      {{- $path = print "/static" .Destination }}
-    {{- end }}
-    {{- if not (fileExists $path) }}
-      {{- warnf "Image '%s' not found in '%s'" .Destination .Page.File }}
-    {{- end }}
-  {{- end }}
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }}/>
+
+  {{- /* 创建属性并添加懒加载 */ -}}
+  {{- $attributes := dict "alt" .Text "src" $src "loading" "lazy" -}}
+  {{- with .Title -}}
+    {{- $attributes = merge $attributes (dict "title" (. | transform.HTMLEscape)) -}}
+  {{- end -}}
+  
+  <img
+    {{- range $k, $v := $attributes -}}
+      {{- if $v -}}
+        {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+      {{- end -}}
+    {{- end -}}>
 {{- end -}}
-
-
