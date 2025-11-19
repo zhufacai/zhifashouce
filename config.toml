@@ -8,7 +8,6 @@ theme = "hugo-book"
 
 [params]
   BookTheme = 'auto'
-  BookLogo = 'logo.png'
   BookToC = false
   BookSection = 'docs'
 
