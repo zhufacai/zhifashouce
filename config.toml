@@ -11,7 +11,7 @@ theme = "hugo-book"
   BookToC = false
   BookSection = 'docs'
 
-  BookSearch = true
+  BookSearch = false
   BookComments = false
   BookFlatSection = true
   enableInlineShortcodes = true
