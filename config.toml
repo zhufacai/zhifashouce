@@ -25,3 +25,6 @@ theme = "hugo-book"
     ordered = false
     # 纳入目录的最大标题级别，默认为2
     startLevel = 1
+	
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
