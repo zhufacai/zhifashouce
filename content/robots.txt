@@ -1,0 +1,4 @@
+Sitemap: https://web.fadian.net/sitemap.xml
+User-agent: *
+Disallow: /*.css
+Disallow: /*.js
