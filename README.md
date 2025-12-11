@@ -1,9 +1,4 @@
----
-title: 首页
-BookToc: false
----
-
-![](/zhifa.png)
+![](content/zhifa.png)
 
 ------
 
